@@ -1,7 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
+const MongoClient = require('mongodb').MongoClient
 
+
+MongoClient.connect('mongodb-connection-string', (err, client) => {
+
+})
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.listen(3000, function(){
