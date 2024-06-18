@@ -1,1 +1,1 @@
-Some fullstack crud, possibly becomes something useful
+Some fullstack crud, doing the things
