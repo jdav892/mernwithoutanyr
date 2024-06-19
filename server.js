@@ -3,22 +3,32 @@ const bodyParser = require('body-parser')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
 
+MongoClient.connect('mongodb+srv://jadavila9:jayxx892@cluster0.ij5cahp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+    .then(client => {
+    console.log("Connected to Database")
+    const db = client.db('quoteGenerator')
+    const quoteCollection = db.collection("quotes")
+    
+    app.use(bodyParser.urlencoded({extended: true}))
 
-MongoClient.connect('mongodb-connection-string', (err, client) => {
+    app.get('/', (req, res) => {
+        res.sendFile(__dirname + '/index.html') 
+    })
+
+    app.post('/quotes', (req, res) => {
+        quoteCollection
+            .insertOne(req.body)
+            .then(result => {
+                console.log(result)
+            })
+            .catch(error => console.error(error))
+    })
+    app.listen(3000, function(){
+        console.log('listening on 3000')
+    });
 
 })
-app.use(bodyParser.urlencoded({extended: true}))
-
-app.listen(3000, function(){
-    console.log('listening on 3000')
-});
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html') 
-})
-
-app.post('/quotes', (req, res) => {
-    console.log(req.body)
-})
+.catch(error => console.error(error))
+     
 
 console.log('May Node be with you')
