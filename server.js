@@ -13,6 +13,13 @@ MongoClient.connect('mongodb+srv://jadavila9:jayxx892@cluster0.ij5cahp.mongodb.n
 
     app.get('/', (req, res) => {
         res.sendFile(__dirname + '/index.html') 
+        db.collection('quotes')
+            .find()
+            .toArray()
+            .then(results => {
+                console.log(results)
+            })
+            .catch(error => console.error(error))
     })
 
     app.post('/quotes', (req, res) => {
