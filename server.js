@@ -30,6 +30,12 @@ MongoClient.connect('mongodb+srv://jadavila9:jayxx892@cluster0.ij5cahp.mongodb.n
             })
             .catch(error => console.error(error))
     })
+
+    app.set('view engine', 'ejs')
+
+    res.render(view,locals)
+
+
     app.listen(3000, function(){
         console.log('listening on 3000')
     });
