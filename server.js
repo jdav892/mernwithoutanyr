@@ -11,13 +11,12 @@ MongoClient.connect('mongodb+srv://jadavila9:jayxx892@cluster0.ij5cahp.mongodb.n
     
     app.use(bodyParser.urlencoded({extended: true}))
 
-    app.get('/', (req, res) => {
-        res.sendFile(__dirname + '/index.html') 
+    app.get('/', (req, res) => { 
         db.collection('quotes')
             .find()
             .toArray()
             .then(results => {
-                console.log(results)
+                res.render('index.ejs', {quotes: results })
             })
             .catch(error => console.error(error))
     })
@@ -32,8 +31,6 @@ MongoClient.connect('mongodb+srv://jadavila9:jayxx892@cluster0.ij5cahp.mongodb.n
     })
 
     app.set('view engine', 'ejs')
-
-    res.render(view,locals)
 
 
     app.listen(3000, function(){
