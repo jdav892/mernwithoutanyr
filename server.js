@@ -3,6 +3,9 @@ const bodyParser = require('body-parser')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
 
+app.use(bodyParser.json())
+app.use(express.static('public'))
+
 MongoClient.connect('mongodb+srv://jadavila9:jayxx892@cluster0.ij5cahp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
     .then(client => {
     console.log("Connected to Database")
@@ -19,6 +22,10 @@ MongoClient.connect('mongodb+srv://jadavila9:jayxx892@cluster0.ij5cahp.mongodb.n
                 res.render('index.ejs', {quotes: results })
             })
             .catch(error => console.error(error))
+    })
+    
+    app.put('/quotes', (req, res) => {
+        console.log(req.body)
     })
 
     app.post('/quotes', (req, res) => {
